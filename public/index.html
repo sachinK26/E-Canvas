@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Whiteboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=5">
+</head>
+
+<body>
+
+    <div id="landingOverlay" class="landing-overlay">
+        <div class="landing-card" id="step1Card">
+            <h1>E-Canvas</h1>
+            <p>Select your preferred mode to begin.</p>
+
+            <div class="form-group">
+                <label>Mode</label>
+                <div class="mode-selection">
+                    <label class="mode-option">
+                        <input type="radio" name="mode" value="professional" checked>
+                        <div class="mode-card">
+                            <span class="icon">💻</span>
+                            <span class="title">Professional</span>
+                            <span class="desc">Collaborate freely. Everyone draws.</span>
+                        </div>
+                    </label>
+                    <label class="mode-option">
+                        <input type="radio" name="mode" value="game">
+                        <div class="mode-card">
+                            <span class="icon">🎮</span>
+                            <span class="title">Guessing Game</span>
+                            <span class="desc">One draws, others guess the word!</span>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <button id="nextStepBtn" class="join-btn">Next Step</button>
+        </div>
+
+        <div class="landing-card" id="step2Card" style="display: none;">
+            <h1>E-Canvas</h1>
+            <p>Enter your details and a Room ID.</p>
+
+            <div class="form-group">
+                <label for="playerNameInput">Your Name</label>
+                <input type="text" id="playerNameInput" maxlength="20">
+            </div>
+
+            <div class="form-group">
+                <label for="roomNameInput">Room ID</label>
+                <input type="text" id="roomNameInput" maxlength="20">
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button id="createRoomBtn" class="join-btn" style="background: #10b981; margin-top: 0;">Create
+                    Room</button>
+                <button id="joinRoomBtn" class="join-btn" style="margin-top: 0;">Join Room</button>
+            </div>
+
+            <button id="backBtn"
+                style="background: transparent; color: #94a3b8; border: none; font-size: 14px; margin-top: 16px; cursor: pointer; text-decoration: underline; width: 100%;">Back
+                to Modes</button>
+            <p id="landingError" class="landing-error"></p>
+        </div>
+    </div>
+
+    <div class="game-container" id="gameContainer" style="display: none;">
+        <div class="main-area">
+            <div class="game-header">
+                <div id="roleDisplay" class="role-badge">Waiting...</div>
+                <div id="wordDisplay" class="secret-word">Connecting...</div>
+
+                <div class="members-container">
+                    <button id="membersBtn" class="members-btn" title="Room Members">
+                        <span class="emoji">👥</span> Members <span id="membersCountBadge"
+                            class="members-badge">1</span>
+                    </button>
+                    <div id="membersPopup" class="members-popup" style="display: none;">
+                        <h4>Live Members</h4>
+                        <ul id="membersList" class="members-list">
+                            <!-- Members populated by JS -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="toolbar" id="toolbar" style="display: none;">
+
+                <div class="tool-group">
+                    <label>Pen</label>
+                    <button id="penBtn" class="tool-btn active" title="Pen">✏️</button>
+                </div>
+
+                <div class="tool-group">
+                    <label>Eraser</label>
+                    <button id="eraserBtn" class="tool-btn" title="Eraser">🧼</button>
+                </div>
+
+                <div class="tool-separator"></div>
+
+                <div class="tool-group">
+                    <label>Colors</label>
+                    <div class="preset-colors">
+                        <div class="swatch active" style="background:#f8fafc" data-color="#f8fafc"></div>
+                        <div class="swatch" style="background:#ef4444" data-color="#ef4444"></div>
+                        <div class="swatch" style="background:#3b82f6" data-color="#3b82f6"></div>
+                        <div class="swatch" style="background:#10b981" data-color="#10b981"></div>
+                        <div class="swatch" style="background:#f59e0b" data-color="#f59e0b"></div>
+                        <input type="color" id="colorPicker" value="#f8fafc" title="Custom color">
+                    </div>
+                </div>
+
+                <div class="tool-separator"></div>
+
+                <div class="tool-group">
+                    <label for="sizePicker">Scale: <span id="sizeValue">5</span></label>
+                    <input type="range" id="sizePicker" min="1" max="100" value="5" title="Brush scale">
+                </div>
+
+                <button id="clearBtn" class="clear-btn">Clear</button>
+            </div>
+
+            <div class="canvas-container">
+                <canvas id="whiteboard"></canvas>
+            </div>
+        </div>
+
+        <!-- Sidebar for Chat/Guessing -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>Chat & Actions</h3>
+                <div id="playerName" class="player-name">Player ?</div>
+                <button id="closeRoomBtn" class="close-room"
+                    title="Close room and return everyone to the home page">Close Room</button>
+            </div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input-area">
+                <input type="text" id="chatInput" placeholder="Type a message..." autocomplete="off">
+                <button id="sendBtn">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js?v=5"></script>
+</body>
+
+</html>
